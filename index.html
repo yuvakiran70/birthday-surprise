@@ -10,6 +10,10 @@ initial-scale=1.0,
 maximum-scale=1.0,
 user-scalable=no">
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+
 <title>Aara's Birthday Surprise</title>
 
 <style>
@@ -590,9 +594,8 @@ body{
     width:100%;
 
     font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
+    "Pacifico",
+    cursive;
 
     line-height:.95;
 
@@ -1697,6 +1700,96 @@ body{
 
 }
 
+
+/* =========================================================
+   FINAL DONE BUTTON - ADDED ONLY AT THE END
+========================================================= */
+
+.doneBtn{
+    position:relative;
+    z-index:100;
+    width:min(85%,310px);
+    padding:16px 28px;
+    margin-top:20px;
+    border:none;
+    border-radius:60px;
+    color:white;
+    font-size:1.02rem;
+    font-weight:bold;
+    background:
+    linear-gradient(
+        135deg,
+        #ff398d,
+        #8b45ff
+    );
+    box-shadow:
+    0 12px 35px
+    rgba(120,30,170,.4),
+    inset 0 1px 1px
+    rgba(255,255,255,.5);
+    cursor:pointer;
+    transition:transform .2s;
+}
+
+.doneBtn:active{
+    transform:scale(.92);
+}
+
+/* Final black screen */
+#thankYouScreen{
+    position:fixed;
+    inset:0;
+    width:100%;
+    height:100vh;
+    background:#000;
+    z-index:99999;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+}
+
+#thankYouScreen.show{
+    display:flex;
+    animation:thankYouFade 1.2s ease;
+}
+
+.thankYouText{
+    color:white;
+    font-family:
+    "Trebuchet MS",
+    "Segoe UI",
+    Arial,
+    sans-serif;
+    font-size:clamp(2.5rem,10vw,5rem);
+    font-weight:900;
+    letter-spacing:2px;
+    animation:thankYouAppear 1.5s ease;
+}
+
+@keyframes thankYouFade{
+    from{opacity:0;}
+    to{opacity:1;}
+}
+
+@keyframes thankYouAppear{
+    from{
+        opacity:0;
+        transform:scale(.7);
+    }
+    to{
+        opacity:1;
+        transform:scale(1);
+    }
+}
+
+@media(max-width:500px){
+    .doneBtn{
+        margin-top:16px;
+        margin-bottom:20px;
+    }
+}
+
 </style>
 </head>
 
@@ -2620,10 +2713,55 @@ MADE JUST FOR YOU ✨
 
 </div>
 
+<button
+class="doneBtn"
+onclick="finishSurprise()">
+
+DONE ✨
+
+</button>
+
 </section>
 
 
+
+<!-- ======================================================
+     FINAL DONE SCREEN
+====================================================== -->
+
+<div id="thankYouScreen">
+
+    <div class="thankYouText">
+        Thank You 💖
+    </div>
+
+</div>
+
 <script>
+
+
+/* =========================================================
+   FINAL DONE
+========================================================= */
+
+function finishSurprise(){
+
+    document
+    .querySelectorAll(".screen")
+    .forEach(function(screen){
+
+        screen.style.display="none";
+
+    });
+
+    document.body.style.overflow="hidden";
+
+    document
+    .getElementById("thankYouScreen")
+    .classList.add("show");
+
+}
+
 
 /* =========================================================
    NAVIGATION
