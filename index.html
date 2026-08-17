@@ -1,0 +1,3795 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width,
+initial-scale=1.0,
+maximum-scale=1.0,
+user-scalable=no">
+
+<title>Aara's Birthday Surprise</title>
+
+<style>
+
+/* =========================================================
+   RESET
+========================================================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html,body{
+    width:100%;
+    height:100%;
+    overflow:hidden;
+}
+
+body{
+    font-family:
+    "Trebuchet MS",
+    "Segoe UI",
+    Arial,
+    sans-serif;
+
+    background:#10051d;
+
+    -webkit-tap-highlight-color:transparent;
+}
+
+
+/* =========================================================
+   SCREEN
+========================================================= */
+
+.screen{
+
+    position:absolute;
+    inset:0;
+
+    width:100%;
+    height:100vh;
+
+    display:none;
+
+    justify-content:center;
+    align-items:center;
+
+    flex-direction:column;
+
+    text-align:center;
+
+    padding:22px;
+
+    overflow:hidden;
+
+    isolation:isolate;
+}
+
+.screen.active{
+
+    display:flex;
+
+    animation:
+    pageIn .8s cubic-bezier(.2,.8,.2,1);
+}
+
+@keyframes pageIn{
+
+    0%{
+        opacity:0;
+        transform:scale(.94);
+    }
+
+    100%{
+        opacity:1;
+        transform:scale(1);
+    }
+}
+
+
+/* =========================================================
+   BACKGROUND
+========================================================= */
+
+.screen::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:-30%;
+
+    background:
+
+    radial-gradient(
+        circle at 15% 20%,
+        rgba(255,100,180,.20),
+        transparent 20%
+    ),
+
+    radial-gradient(
+        circle at 85% 30%,
+        rgba(100,150,255,.20),
+        transparent 22%
+    ),
+
+    radial-gradient(
+        circle at 50% 100%,
+        rgba(180,80,255,.20),
+        transparent 30%
+    );
+
+    animation:
+    backgroundMove 10s ease-in-out infinite alternate;
+
+    z-index:-5;
+}
+
+@keyframes backgroundMove{
+
+    from{
+        transform:translate(-2%,-2%) scale(1);
+    }
+
+    to{
+        transform:translate(2%,2%) scale(1.12);
+    }
+}
+
+
+/* =========================================================
+   INTRO
+========================================================= */
+
+.intro{
+
+    color:#57244e;
+
+    background:
+
+    linear-gradient(
+        135deg,
+        #ffe3ef,
+        #e8ddff,
+        #fff1f7,
+        #dfeeff
+    );
+
+    background-size:400% 400%;
+
+    animation:
+    introGradient 12s ease infinite;
+}
+
+@keyframes introGradient{
+
+    0%{
+        background-position:0% 50%;
+    }
+
+    50%{
+        background-position:100% 50%;
+    }
+
+    100%{
+        background-position:0% 50%;
+    }
+}
+
+
+/* =========================================================
+   DARK CELEBRATION
+========================================================= */
+
+.darkCelebration{
+
+    color:white;
+
+    background:
+
+    radial-gradient(
+        circle at 20% 20%,
+        #ff438d44,
+        transparent 25%
+    ),
+
+    radial-gradient(
+        circle at 80% 80%,
+        #774cff55,
+        transparent 30%
+    ),
+
+    linear-gradient(
+        135deg,
+        #0c0315,
+        #401050,
+        #14051f
+    );
+}
+
+
+/* =========================================================
+   BIRTHDAY
+========================================================= */
+
+.birthdayScreen{
+
+    color:white;
+
+    background:
+
+    radial-gradient(
+        ellipse at center,
+        #702795,
+        #351052 38%,
+        #100319 80%
+    );
+}
+
+
+/* =========================================================
+   TITLE
+========================================================= */
+
+.title{
+
+    position:relative;
+    z-index:30;
+
+    font-size:
+    clamp(2.2rem,9vw,4rem);
+
+    font-weight:900;
+
+    line-height:1.1;
+
+    color:#e93683;
+
+    margin-bottom:16px;
+
+    animation:
+    titleFloat 3s ease-in-out infinite;
+}
+
+@keyframes titleFloat{
+
+    0%,100%{
+        transform:translateY(0);
+    }
+
+    50%{
+        transform:translateY(-6px);
+    }
+}
+
+
+/* =========================================================
+   SUBTITLE
+========================================================= */
+
+.subtitle{
+
+    position:relative;
+    z-index:30;
+
+    max-width:370px;
+
+    font-size:1.05rem;
+
+    line-height:1.7;
+
+    margin-bottom:22px;
+
+    animation:
+    fadeUp 1s ease;
+}
+
+@keyframes fadeUp{
+
+    from{
+        opacity:0;
+        transform:translateY(18px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+
+/* =========================================================
+   PROGRESS
+========================================================= */
+
+.progress{
+
+    position:absolute;
+
+    top:25px;
+    left:50%;
+
+    transform:translateX(-50%);
+
+    z-index:50;
+
+    padding:8px 17px;
+
+    border-radius:30px;
+
+    background:
+    rgba(255,255,255,.55);
+
+    backdrop-filter:blur(10px);
+
+    font-size:.82rem;
+
+    font-weight:bold;
+
+    letter-spacing:2px;
+}
+
+
+/* =========================================================
+   BUTTON
+========================================================= */
+
+.nextBtn{
+
+    position:relative;
+
+    z-index:100;
+
+    width:min(85%,310px);
+
+    padding:16px 28px;
+
+    border:none;
+
+    border-radius:60px;
+
+    color:white;
+
+    font-size:1.02rem;
+
+    font-weight:bold;
+
+    background:
+
+    linear-gradient(
+        135deg,
+        #ff398d,
+        #8b45ff
+    );
+
+    box-shadow:
+
+    0 12px 35px
+    rgba(120,30,170,.4),
+
+    inset 0 1px 1px
+    rgba(255,255,255,.5);
+
+    cursor:pointer;
+
+    overflow:hidden;
+
+    transition:
+    transform .2s;
+}
+
+.nextBtn::before{
+
+    content:"";
+
+    position:absolute;
+
+    top:0;
+    left:-120%;
+
+    width:70%;
+    height:100%;
+
+    background:
+
+    linear-gradient(
+        90deg,
+        transparent,
+        rgba(255,255,255,.6),
+        transparent
+    );
+
+    transform:skewX(-25deg);
+
+    animation:
+    buttonShine 3s infinite;
+}
+
+@keyframes buttonShine{
+
+    0%{
+        left:-120%;
+    }
+
+    35%,100%{
+        left:150%;
+    }
+}
+
+.nextBtn:active{
+    transform:scale(.92);
+}
+
+
+/* =========================================================
+   GIFT
+========================================================= */
+
+.gift{
+
+    position:relative;
+    z-index:20;
+
+    font-size:6.8rem;
+
+    margin:20px;
+
+    animation:
+    giftFloat 2s ease-in-out infinite;
+
+    filter:
+    drop-shadow(
+        0 15px 15px
+        rgba(150,40,100,.3)
+    );
+}
+
+@keyframes giftFloat{
+
+    0%,100%{
+        transform:
+        translateY(0)
+        rotate(-4deg);
+    }
+
+    50%{
+        transform:
+        translateY(-18px)
+        rotate(4deg);
+    }
+}
+
+
+/* =========================================================
+   CAKE
+========================================================= */
+
+.cakeContainer{
+
+    position:relative;
+    z-index:20;
+
+    cursor:pointer;
+
+    margin:20px;
+
+    animation:
+    cakeFloat 2s ease-in-out infinite;
+}
+
+.cake{
+
+    font-size:7rem;
+
+    filter:
+    drop-shadow(
+        0 20px 20px
+        rgba(150,40,100,.35)
+    );
+}
+
+.candle{
+
+    position:absolute;
+
+    top:-4px;
+
+    left:50%;
+
+    transform:translateX(-50%);
+
+    font-size:2rem;
+
+    animation:
+    flame .5s infinite alternate;
+}
+
+@keyframes flame{
+
+    from{
+        transform:
+        translateX(-50%)
+        scale(.85)
+        rotate(-4deg);
+    }
+
+    to{
+        transform:
+        translateX(-50%)
+        scale(1.25)
+        rotate(4deg);
+    }
+}
+
+@keyframes cakeFloat{
+
+    0%,100%{
+        transform:translateY(0);
+    }
+
+    50%{
+        transform:translateY(-14px);
+    }
+}
+
+
+/* =========================================================
+   WAIT TITLE
+========================================================= */
+
+.waitTitle{
+
+    position:relative;
+    z-index:30;
+
+    max-width:390px;
+
+    color:white;
+
+    font-size:
+    clamp(2.15rem,9vw,4rem);
+
+    font-weight:900;
+
+    line-height:1.1;
+
+    animation:
+    glowPulse 2s ease-in-out infinite alternate;
+}
+
+@keyframes glowPulse{
+
+    from{
+        text-shadow:
+        0 0 5px #ff4b9e;
+    }
+
+    to{
+        text-shadow:
+        0 0 18px #ff4b9e,
+        0 0 35px #9c48ff;
+    }
+}
+
+
+/* =========================================================
+   HAPPY BIRTHDAY
+========================================================= */
+
+.happyBirthday{
+
+    position:relative;
+    z-index:40;
+
+    width:100%;
+
+    font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+    line-height:.95;
+
+    animation:
+    birthdayEntrance 1.4s cubic-bezier(.2,.9,.2,1);
+}
+
+.happyText{
+
+    display:block;
+
+    font-size:
+    clamp(2.8rem,13vw,5.8rem);
+
+    font-weight:900;
+
+    letter-spacing:2px;
+
+    background:
+
+    linear-gradient(
+        90deg,
+        #ff469b,
+        #ffd44b,
+        #66eaff,
+        #c05aff,
+        #ff469b
+    );
+
+    background-size:400%;
+
+    -webkit-background-clip:text;
+    background-clip:text;
+
+    color:transparent;
+
+    animation:
+    rainbow 4s linear infinite,
+
+    happyGlow 2s ease-in-out infinite alternate;
+}
+
+.birthdayName{
+
+    display:block;
+
+    margin-top:14px;
+
+    font-family:
+    "Trebuchet MS",
+    "Segoe UI",
+    sans-serif;
+
+    font-size:
+    clamp(2.6rem,11vw,5.3rem);
+
+    font-weight:1000;
+
+    letter-spacing:
+    clamp(3px,1.5vw,10px);
+
+    color:white;
+
+    text-shadow:
+
+    0 0 5px #ff54aa,
+    0 0 15px #ff54aa,
+    0 0 35px #9f4fff;
+
+    animation:
+    namePulse 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes birthdayEntrance{
+
+    0%{
+        opacity:0;
+        transform:
+        scale(.3)
+        translateY(60px);
+    }
+
+    70%{
+        transform:scale(1.08);
+    }
+
+    100%{
+        opacity:1;
+        transform:scale(1);
+    }
+}
+
+@keyframes rainbow{
+
+    to{
+        background-position:400%;
+    }
+}
+
+@keyframes happyGlow{
+
+    from{
+        filter:
+        drop-shadow(
+            0 0 5px #ff4d9d
+        );
+    }
+
+    to{
+        filter:
+        drop-shadow(
+            0 0 25px #ff4d9d
+        );
+    }
+}
+
+@keyframes namePulse{
+
+    from{
+        transform:scale(1);
+    }
+
+    to{
+        transform:scale(1.035);
+    }
+}
+
+
+/* =========================================================
+   BIRTHDAY CAKE
+========================================================= */
+
+.birthdayCake{
+
+    position:relative;
+    z-index:30;
+
+    font-size:
+    clamp(4rem,18vw,7rem);
+
+    margin-top:22px;
+
+    animation:
+    cakeBounce 1.8s infinite;
+}
+
+@keyframes cakeBounce{
+
+    0%,100%{
+        transform:
+        translateY(0)
+        rotate(-2deg);
+    }
+
+    50%{
+        transform:
+        translateY(-12px)
+        rotate(2deg);
+    }
+}
+
+
+/* =========================================================
+   RINGS
+========================================================= */
+
+.ring{
+
+    position:absolute;
+
+    z-index:5;
+
+    width:270px;
+    height:270px;
+
+    border-radius:50%;
+
+    border:
+    1px solid
+    rgba(255,130,210,.4);
+
+    box-shadow:
+    0 0 30px
+    rgba(255,90,190,.2);
+
+    animation:
+    ringSpin 8s linear infinite;
+}
+
+.ring.r2{
+
+    width:360px;
+    height:360px;
+
+    animation:
+    ringSpin 12s linear infinite reverse;
+
+    border-color:
+    rgba(100,130,255,.3);
+}
+
+@keyframes ringSpin{
+
+    to{
+        transform:
+        rotate(360deg)
+        scale(1.08);
+    }
+}
+
+
+/* =========================================================
+   BLUR
+========================================================= */
+
+.blurOverlay{
+
+    position:absolute;
+
+    inset:0;
+
+    z-index:500;
+
+    display:none;
+
+    flex-direction:column;
+
+    align-items:center;
+    justify-content:center;
+
+    padding:25px;
+
+    background:
+    rgba(8,2,15,.72);
+
+    backdrop-filter:
+    blur(18px);
+}
+
+.blurOverlay.show{
+
+    display:flex;
+
+    animation:
+    blurAppear 1.2s ease;
+}
+
+@keyframes blurAppear{
+
+    from{
+        opacity:0;
+    }
+
+    to{
+        opacity:1;
+    }
+}
+
+.blurTitle{
+
+    color:white;
+
+    font-size:
+    clamp(2rem,8vw,3.7rem);
+
+    font-weight:900;
+
+    line-height:1.1;
+
+    margin-bottom:15px;
+
+    text-shadow:
+    0 0 20px #ff55a9;
+}
+
+
+/* =========================================================
+   LETTER
+========================================================= */
+
+.bigLetter{
+
+    position:relative;
+    z-index:40;
+
+    font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+    font-size:
+    clamp(8rem,35vw,14rem);
+
+    font-weight:900;
+
+    line-height:.9;
+
+    background:
+
+    linear-gradient(
+        135deg,
+        #ff3c91,
+        #ffd24d,
+        #66eaff,
+        #a24eff,
+        #ff3c91
+    );
+
+    background-size:400%;
+
+    -webkit-background-clip:text;
+    background-clip:text;
+
+    color:transparent;
+
+    animation:
+
+    letterReveal 1s ease,
+
+    rainbow 3s linear infinite,
+
+    letterGlow 1.5s infinite alternate;
+}
+
+@keyframes letterReveal{
+
+    from{
+        opacity:0;
+        transform:
+        scale(.1)
+        rotate(-30deg);
+    }
+
+    to{
+        opacity:1;
+        transform:
+        scale(1)
+        rotate(0);
+    }
+}
+
+@keyframes letterGlow{
+
+    from{
+        filter:
+        drop-shadow(
+            0 0 5px #ff4d9f
+        );
+    }
+
+    to{
+        filter:
+        drop-shadow(
+            0 0 35px #ff4d9f
+        );
+    }
+}
+
+
+/* =========================================================
+   NAME COMPLETE
+========================================================= */
+
+.nameComplete{
+
+    position:relative;
+    z-index:40;
+
+    font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+    font-size:
+    clamp(4.5rem,20vw,8rem);
+
+    font-weight:900;
+
+    letter-spacing:
+    clamp(4px,2vw,12px);
+
+    background:
+
+    linear-gradient(
+        90deg,
+        #ff3d92,
+        #ffd64b,
+        #6eeaff,
+        #a34fff,
+        #ff3d92
+    );
+
+    background-size:400%;
+
+    -webkit-background-clip:text;
+    background-clip:text;
+
+    color:transparent;
+
+    animation:
+    nameAppear 1.5s ease,
+    rainbow 3s linear infinite;
+}
+
+@keyframes nameAppear{
+
+    from{
+        opacity:0;
+        transform:scale(.2);
+    }
+
+    60%{
+        transform:scale(1.15);
+    }
+
+    to{
+        opacity:1;
+        transform:scale(1);
+    }
+}
+
+
+/* =========================================================
+   FINAL NOTE
+========================================================= */
+
+.finalTitle{
+
+    position:relative;
+    z-index:40;
+
+    font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+    font-size:
+    clamp(2.5rem,11vw,5rem);
+
+    color:#e73584;
+
+    font-weight:900;
+}
+
+
+/* =========================================================
+   BEST FRIEND BADGE
+========================================================= */
+
+.bestFriendBadge{
+
+    position:relative;
+
+    z-index:40;
+
+    display:inline-block;
+
+    margin:8px 0 5px;
+
+    padding:8px 18px;
+
+    border-radius:30px;
+
+    font-size:.85rem;
+
+    font-weight:bold;
+
+    letter-spacing:1px;
+
+    color:#fff;
+
+    background:
+    linear-gradient(
+        135deg,
+        #ff4b9d,
+        #8d4cff
+    );
+
+    box-shadow:
+    0 6px 20px
+    rgba(150,50,150,.3);
+
+    animation:
+    badgeFloat 2s ease-in-out infinite;
+}
+
+@keyframes badgeFloat{
+
+    0%,100%{
+        transform:translateY(0);
+    }
+
+    50%{
+        transform:translateY(-4px);
+    }
+}
+
+
+/* =========================================================
+   QUOTE BOX
+========================================================= */
+
+.quoteBox{
+
+    position:relative;
+    z-index:40;
+
+    width:100%;
+    max-width:390px;
+
+    max-height:58vh;
+
+    overflow:auto;
+
+    padding:27px 23px;
+
+    margin-top:12px;
+
+    border-radius:28px;
+
+    background:
+    rgba(255,255,255,.84);
+
+    box-shadow:
+    0 20px 60px
+    rgba(100,30,120,.2);
+
+    color:#53234e;
+
+    font-size:1rem;
+
+    line-height:1.75;
+
+    border:
+    1px solid
+    rgba(255,255,255,.8);
+}
+
+.quoteBox strong{
+    color:#e73584;
+}
+
+.quoteBox .signature{
+
+    margin-top:18px;
+
+    font-weight:bold;
+
+    color:#7b3f88;
+
+    font-size:.95rem;
+}
+
+
+/* =========================================================
+   FIREWORK CANVAS
+========================================================= */
+
+.fireworks{
+
+    position:absolute;
+
+    inset:0;
+
+    width:100%;
+    height:100%;
+
+    z-index:3;
+
+    pointer-events:none;
+}
+
+
+/* =========================================================
+   CONFETTI
+========================================================= */
+
+.confetti{
+
+    position:absolute;
+
+    top:-40px;
+
+    z-index:15;
+
+    pointer-events:none;
+
+    animation:
+    confettiFall linear infinite;
+}
+
+@keyframes confettiFall{
+
+    from{
+        transform:
+        translateY(-30px)
+        rotate(0deg);
+    }
+
+    to{
+        transform:
+        translateY(110vh)
+        translateX(var(--drift))
+        rotate(900deg);
+    }
+}
+
+
+/* =========================================================
+   BALLOONS
+========================================================= */
+
+.balloon{
+
+    position:absolute;
+
+    bottom:-130px;
+
+    z-index:12;
+
+    pointer-events:none;
+
+    animation:
+    balloonUp linear infinite;
+}
+
+@keyframes balloonUp{
+
+    0%{
+        transform:
+        translateY(0)
+        rotate(-5deg);
+    }
+
+    50%{
+        transform:
+        translateY(-55vh)
+        translateX(30px)
+        rotate(5deg);
+    }
+
+    100%{
+        transform:
+        translateY(-120vh)
+        translateX(-20px)
+        rotate(-5deg);
+    }
+}
+
+
+/* =========================================================
+   ROCKETS
+========================================================= */
+
+.rocket{
+
+    position:absolute;
+
+    bottom:-100px;
+
+    z-index:20;
+
+    font-size:2.4rem;
+
+    pointer-events:none;
+
+    animation:
+    rocketFly linear forwards;
+}
+
+@keyframes rocketFly{
+
+    0%{
+        transform:
+        translate(0,0)
+        rotate(-20deg);
+
+        opacity:0;
+    }
+
+    10%{
+        opacity:1;
+    }
+
+    100%{
+        transform:
+        translate(
+            var(--rocketX),
+            -120vh
+        )
+        rotate(-20deg);
+
+        opacity:0;
+    }
+}
+
+
+/* =========================================================
+   SPARKS
+========================================================= */
+
+.spark{
+
+    position:absolute;
+
+    z-index:20;
+
+    color:white;
+
+    pointer-events:none;
+
+    animation:
+    sparkTwinkle 1.5s infinite alternate;
+}
+
+@keyframes sparkTwinkle{
+
+    from{
+        opacity:.1;
+        transform:scale(.4);
+    }
+
+    to{
+        opacity:1;
+        transform:scale(1.5);
+    }
+}
+
+
+/* =========================================================
+   SHOOTING STAR
+========================================================= */
+
+.shootingStar{
+
+    position:absolute;
+
+    width:80px;
+    height:3px;
+
+    border-radius:50%;
+
+    background:
+    linear-gradient(
+        90deg,
+        transparent,
+        white
+    );
+
+    transform:rotate(-25deg);
+
+    z-index:8;
+
+    animation:
+    shooting 1.3s linear forwards;
+}
+
+@keyframes shooting{
+
+    from{
+        opacity:0;
+
+        transform:
+        translate(0,0)
+        rotate(-25deg);
+    }
+
+    20%{
+        opacity:1;
+    }
+
+    to{
+        opacity:0;
+
+        transform:
+        translate(-250px,250px)
+        rotate(-25deg);
+    }
+}
+
+
+/* =========================================================
+   FINAL CELEBRATION SCREEN
+========================================================= */
+
+.finalCelebration{
+
+    color:white;
+
+    background:
+
+    radial-gradient(
+        circle at 50% 40%,
+        #8d299b,
+        #3b0a53 40%,
+        #08020e 90%
+    );
+}
+
+
+/* =========================================================
+   FINAL HUGE TEXT
+========================================================= */
+
+.finalHappy{
+
+    position:relative;
+
+    z-index:50;
+
+    font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+    line-height:1;
+
+    animation:
+    finalEntrance 1.8s
+    cubic-bezier(.2,.9,.2,1);
+}
+
+.finalHappy .small{
+
+    display:block;
+
+    font-size:
+    clamp(2rem,8vw,4rem);
+
+    font-weight:bold;
+
+    letter-spacing:2px;
+}
+
+.finalHappy .huge{
+
+    display:block;
+
+    margin-top:15px;
+
+    font-size:
+    clamp(3.3rem,16vw,7rem);
+
+    font-weight:1000;
+
+    background:
+
+    linear-gradient(
+        90deg,
+        #ff3d96,
+        #ffd94f,
+        #65eaff,
+        #c45aff,
+        #ff3d96
+    );
+
+    background-size:500%;
+
+    -webkit-background-clip:text;
+    background-clip:text;
+
+    color:transparent;
+
+    animation:
+    rainbow 4s linear infinite,
+    finalGlow 1.5s infinite alternate;
+}
+
+@keyframes finalEntrance{
+
+    0%{
+        opacity:0;
+        transform:
+        scale(.2)
+        rotate(-5deg);
+    }
+
+    60%{
+        transform:
+        scale(1.12)
+        rotate(2deg);
+    }
+
+    100%{
+        opacity:1;
+        transform:
+        scale(1)
+        rotate(0);
+    }
+}
+
+@keyframes finalGlow{
+
+    from{
+        filter:
+        drop-shadow(
+            0 0 5px #ff3d96
+        );
+    }
+
+    to{
+        filter:
+        drop-shadow(
+            0 0 35px #ff3d96
+        );
+    }
+}
+
+
+/* =========================================================
+   BEST FRIEND FOREVER
+========================================================= */
+
+.friendForever{
+
+    position:relative;
+
+    z-index:50;
+
+    margin-top:22px;
+
+    padding:12px 25px;
+
+    border-radius:50px;
+
+    background:
+    rgba(255,255,255,.12);
+
+    border:
+    1px solid
+    rgba(255,255,255,.3);
+
+    backdrop-filter:
+    blur(10px);
+
+    font-size:
+    clamp(1rem,4.5vw,1.35rem);
+
+    font-weight:bold;
+
+    letter-spacing:2px;
+
+    animation:
+    friendGlow 2s infinite alternate;
+}
+
+@keyframes friendGlow{
+
+    from{
+        box-shadow:
+        0 0 5px
+        rgba(255,100,200,.2);
+    }
+
+    to{
+        box-shadow:
+        0 0 30px
+        rgba(255,100,200,.7);
+    }
+}
+
+
+/* =========================================================
+   FINAL MESSAGE
+========================================================= */
+
+.finalMessage{
+
+    position:relative;
+
+    z-index:50;
+
+    max-width:380px;
+
+    margin-top:18px;
+
+    font-size:1rem;
+
+    line-height:1.7;
+
+    color:#ffe9f6;
+}
+
+
+/* =========================================================
+   END
+========================================================= */
+
+.theEnd{
+
+    position:relative;
+
+    z-index:50;
+
+    margin-top:20px;
+
+    font-size:.85rem;
+
+    letter-spacing:3px;
+
+    opacity:.75;
+}
+
+
+/* =========================================================
+   COUNTDOWN
+========================================================= */
+
+.countdown{
+
+    position:relative;
+
+    z-index:50;
+
+    font-family:
+    Georgia,
+    serif;
+
+    font-size:
+    clamp(6rem,30vw,13rem);
+
+    font-weight:900;
+
+    color:white;
+
+    text-shadow:
+    0 0 20px #ff4b9d,
+    0 0 50px #9c4cff;
+
+    animation:
+    countdownPop .9s
+    cubic-bezier(.2,.9,.2,1);
+}
+
+@keyframes countdownPop{
+
+    0%{
+        opacity:0;
+        transform:scale(2.5);
+    }
+
+    70%{
+        transform:scale(.85);
+    }
+
+    100%{
+        opacity:1;
+        transform:scale(1);
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media(max-width:500px){
+
+    .screen{
+        padding:18px;
+    }
+
+    .subtitle{
+        font-size:1rem;
+    }
+
+    .gift{
+        font-size:5.7rem;
+    }
+
+    .cake{
+        font-size:6.3rem;
+    }
+
+    .happyText{
+        font-size:3.1rem;
+    }
+
+    .birthdayName{
+        font-size:2.7rem;
+    }
+
+    .birthdayCake{
+        font-size:5.4rem;
+    }
+
+    .bigLetter{
+        font-size:9rem;
+    }
+
+    .nameComplete{
+        font-size:5.3rem;
+    }
+
+    .quoteBox{
+        font-size:.96rem;
+    }
+
+    .finalMessage{
+        font-size:.95rem;
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- ======================================================
+     1
+====================================================== -->
+
+<section
+class="screen intro active"
+id="screen1">
+
+<div class="progress">
+1 / 3
+</div>
+
+<div class="title">
+Hey You! ✨
+</div>
+
+<div class="subtitle">
+
+Something special is
+waiting for you...
+
+<br><br>
+
+But first, you need to
+complete a few little steps.
+
+<br><br>
+
+Don't rush. 😌
+
+</div>
+
+<button
+class="nextBtn"
+onclick="goToScreen(2)">
+
+Next ➜
+
+</button>
+
+</section>
+
+
+<!-- ======================================================
+     2
+====================================================== -->
+
+<section
+class="screen intro"
+id="screen2">
+
+<div class="progress">
+2 / 3
+</div>
+
+<div class="title">
+A Little More... 🎁
+</div>
+
+<div class="gift">
+🎁
+</div>
+
+<div class="subtitle">
+
+You are getting closer...
+
+<br><br>
+
+But the surprise isn't
+ready to be revealed yet.
+
+<br><br>
+
+Keep going. 👀
+
+</div>
+
+<button
+class="nextBtn"
+onclick="goToScreen(3)">
+
+Next ➜
+
+</button>
+
+</section>
+
+
+<!-- ======================================================
+     3
+====================================================== -->
+
+<section
+class="screen intro"
+id="screen3">
+
+<div class="progress">
+3 / 3
+</div>
+
+<div class="title">
+Last Step... 🎉
+</div>
+
+<div class="subtitle">
+
+This is the last step
+before the surprise begins.
+
+<br><br>
+
+Once you continue...
+
+something special
+will start. ✨
+
+</div>
+
+<button
+class="nextBtn"
+onclick="goToScreen(4)">
+
+Continue ➜
+
+</button>
+
+</section>
+
+
+<!-- ======================================================
+     4 CAKE
+====================================================== -->
+
+<section
+class="screen intro"
+id="screen4">
+
+<div class="title">
+Want To Proceed? 🎂
+</div>
+
+<div class="subtitle">
+
+Then you have to
+wake up the surprise...
+
+<br><br>
+
+Tap the cake. 👇
+
+</div>
+
+<div
+class="cakeContainer"
+onclick="openSurprise()">
+
+<div class="candle">
+🔥
+</div>
+
+<div class="cake">
+🎂
+</div>
+
+</div>
+
+<button
+class="nextBtn"
+onclick="openSurprise()">
+
+🎂 Open Surprise
+
+</button>
+
+</section>
+
+
+<!-- ======================================================
+     5 WAIT
+====================================================== -->
+
+<section
+class="screen darkCelebration"
+id="screen5">
+
+<div class="waitTitle">
+
+You Are Still Waiting
+For My Surprise? 👀
+
+</div>
+
+<div class="subtitle">
+
+I thought you would have
+clicked already! 😄
+
+<br><br>
+
+The surprise is literally
+waiting for you.
+
+<br><br>
+
+So...
+
+shall we move forward?
+
+</div>
+
+<button
+class="nextBtn"
+onclick="startBirthday()">
+
+Move Forward ➜
+
+</button>
+
+</section>
+
+
+<!-- ======================================================
+     6 AISHWARYA
+====================================================== -->
+
+<section
+class="screen birthdayScreen"
+id="screen6">
+
+<canvas
+class="fireworks"
+id="fireworks1">
+</canvas>
+
+<div class="ring"></div>
+<div class="ring r2"></div>
+
+<div id="confetti1"></div>
+<div id="balloons1"></div>
+<div id="sparks1"></div>
+<div id="rockets1"></div>
+<div id="stars1"></div>
+
+<div class="happyBirthday">
+
+<span class="happyText">
+HAPPY BIRTHDAY
+</span>
+
+<span class="birthdayName">
+AISHWARYA
+</span>
+
+</div>
+
+<div class="subtitle"
+style="color:#ffe7f5;margin-top:15px;">
+
+🎉 May your day be filled with
+beautiful moments 🎉
+
+</div>
+
+<div class="birthdayCake">
+🎂
+</div>
+
+
+<div
+class="blurOverlay"
+id="blurOverlay">
+
+<div class="blurTitle">
+
+Don't Stop Here... 👀
+
+</div>
+
+<div class="subtitle"
+style="color:#ffe5f4;">
+
+You thought that was
+the whole surprise?
+
+<br><br>
+
+There is still something
+waiting for you...
+
+</div>
+
+<button
+class="nextBtn"
+onclick="goToScreen(7)">
+
+Next ➜
+
+</button>
+
+</div>
+
+</section>
+
+
+<!-- ======================================================
+     7 NAME INTRO
+====================================================== -->
+
+<section
+class="screen darkCelebration"
+id="screen7">
+
+<div class="waitTitle">
+
+You've Been Waiting
+For Your Name... 👀
+
+</div>
+
+<div class="subtitle">
+
+I know you have.
+
+<br><br>
+
+But I didn't want to
+reveal it immediately.
+
+<br><br>
+
+Let's do something
+more interesting.
+
+<br><br>
+
+One letter at a time. ✨
+
+</div>
+
+<button
+class="nextBtn"
+onclick="goToScreen(8)">
+
+Reveal First Letter ➜
+
+</button>
+
+</section>
+
+
+<!-- ======================================================
+     8 A
+====================================================== -->
+
+<section
+class="screen intro"
+id="screen8">
+
+<div class="subtitle">
+
+The first letter is...
+
+</div>
+
+<div class="bigLetter">
+A
+</div>
+
+<div class="subtitle">
+One down... 👀
+</div>
+
+<button
+class="nextBtn"
+onclick="goToScreen(9)">
+
+Next Letter ➜
+
+</button>
+
+</section>
+
+
+<!-- ======================================================
+     9 A
+====================================================== -->
+
+<section
+class="screen intro"
+id="screen9">
+
+<div class="subtitle">
+
+The second letter is...
+
+</div>
+
+<div class="bigLetter">
+A
+</div>
+
+<div class="subtitle">
+Getting closer... ✨
+</div>
+
+<button
+class="nextBtn"
+onclick="goToScreen(10)">
+
+Next Letter ➜
+
+</button>
+
+</section>
+
+
+<!-- ======================================================
+     10 R
+====================================================== -->
+
+<section
+class="screen intro"
+id="screen10">
+
+<div class="subtitle">
+
+Now the third letter...
+
+</div>
+
+<div class="bigLetter">
+R
+</div>
+
+<div class="subtitle">
+Do you know the name yet? 😏
+</div>
+
+<button
+class="nextBtn"
+onclick="goToScreen(11)">
+
+Next Letter ➜
+
+</button>
+
+</section>
+
+
+<!-- ======================================================
+     11 A
+====================================================== -->
+
+<section
+class="screen intro"
+id="screen11">
+
+<div class="subtitle">
+
+And finally...
+
+the last letter.
+
+</div>
+
+<div class="bigLetter">
+A
+</div>
+
+<div class="subtitle">
+Now put them together... ✨
+</div>
+
+<button
+class="nextBtn"
+onclick="goToScreen(12)">
+
+Reveal Name ➜
+
+</button>
+
+</section>
+
+
+<!-- ======================================================
+     12 AARA
+====================================================== -->
+
+<section
+class="screen intro"
+id="screen12">
+
+<div class="subtitle">
+
+So the name I was
+thinking about was...
+
+</div>
+
+<div class="nameComplete">
+AARA
+</div>
+
+<div class="subtitle">
+
+✨ AARA ✨
+
+</div>
+
+<button
+class="nextBtn"
+onclick="goToScreen(13)">
+
+Next ➜
+
+</button>
+
+</section>
+
+
+<!-- ======================================================
+     13 FINAL BIRTHDAY
+====================================================== -->
+
+<section
+class="screen birthdayScreen"
+id="screen13">
+
+<canvas
+class="fireworks"
+id="fireworks2">
+</canvas>
+
+<div class="ring"></div>
+<div class="ring r2"></div>
+
+<div id="confetti2"></div>
+<div id="balloons2"></div>
+<div id="rockets2"></div>
+<div id="sparks2"></div>
+
+<div class="happyBirthday">
+
+<span class="happyText">
+HAPPY BIRTHDAY
+</span>
+
+<span class="birthdayName">
+AARA
+</span>
+
+</div>
+
+<div class="subtitle"
+style="color:#ffe7f5;margin-top:15px;">
+
+🎊 Finally... the secret name
+has been revealed! 🎊
+
+<br>
+
+And yes... this one is
+specially for my best friend. 💫
+
+</div>
+
+<div class="birthdayCake">
+🎂
+</div>
+
+<button
+class="nextBtn"
+onclick="goToScreen(14)">
+
+One Final Step ➜
+
+</button>
+
+</section>
+
+
+<!-- ======================================================
+     14 FINAL STEP
+====================================================== -->
+
+<section
+class="screen intro"
+id="screen14">
+
+<div class="title">
+One Final Step 💌
+</div>
+
+<div style="
+font-size:6rem;
+margin:22px;
+animation:giftFloat 2s infinite;
+">
+💌
+</div>
+
+<div class="subtitle">
+
+You've reached the end
+of the surprise...
+
+<br><br>
+
+But I still have one
+small note for you.
+
+<br><br>
+
+A little message from
+your friend to you. 💛
+
+<br><br>
+
+Ready?
+
+</div>
+
+<button
+class="nextBtn"
+onclick="goToScreen(15)">
+
+Open My Note 💖
+
+</button>
+
+</section>
+
+
+<!-- ======================================================
+     15 NOTE
+====================================================== -->
+
+<section
+class="screen intro"
+id="screen15">
+
+<div class="finalTitle">
+
+Dear Aara ✨
+
+</div>
+
+<div class="bestFriendBadge">
+
+🌟 MY BEST FRIEND 🌟
+
+</div>
+
+<div style="
+font-size:3.8rem;
+margin:12px;
+">
+
+🎂 🎈 🎁 🎉
+
+</div>
+
+<div class="quoteBox">
+
+<strong>
+To my best friend, Aara 💛
+</strong>
+
+<br><br>
+
+Happy Birthday! 🎂✨
+
+<br><br>
+
+I just wanted to make
+something a little special
+for you because you are
+not just another person
+in my life...
+
+you are one of those
+friends who makes the
+ordinary moments feel
+special.
+
+<br><br>
+
+We've shared laughs,
+random conversations,
+crazy moments,
+little arguments,
+and memories that
+I'll probably remember
+for a very long time. 😄
+
+<br><br>
+
+And honestly...
+
+I'm really lucky to have
+a best friend like you.
+
+<br><br>
+
+<strong>
+I hope this birthday
+brings you everything
+you've been wishing for.
+</strong>
+
+<br><br>
+
+May you always have
+reasons to smile,
+people who genuinely
+care about you,
+and moments that make
+you say,
+
+"Yeah... life is actually
+pretty amazing." ✨
+
+<br><br>
+
+No matter how much
+time passes or how much
+things change,
+
+I hope our friendship
+always stays one of
+those beautiful memories
+that keeps growing.
+
+<br><br>
+
+Here's to more laughs,
+more crazy memories,
+more random plans,
+more unforgettable
+moments...
+
+and many more
+birthdays to celebrate
+together. 🎉
+
+<br><br>
+
+<strong>
+Stay happy.
+Stay crazy.
+Stay exactly the way
+you are. 💫
+</strong>
+
+<br><br>
+
+Because that's the
+friend I know and
+love having around. 💛
+
+<br><br>
+
+Once again...
+
+<strong>
+HAPPY BIRTHDAY
+AARA! 🎂🎉
+</strong>
+
+<br><br>
+
+May this year be your
+best chapter yet.
+
+<div class="signature">
+
+— From your best friend,
+with lots of memories
+waiting to be made. 💛
+
+</div>
+
+</div>
+
+<br>
+
+<button
+class="nextBtn"
+onclick="startFinalCelebration()">
+
+🎆 One Last Surprise 🎆
+
+</button>
+
+</section>
+
+
+<!-- ======================================================
+     16 COUNTDOWN
+====================================================== -->
+
+<section
+class="screen darkCelebration"
+id="screen16">
+
+<div class="subtitle"
+style="color:white;font-size:1.2rem;">
+
+Wait...
+
+<br><br>
+
+I have one last thing
+to show you. 👀
+
+</div>
+
+<div
+class="countdown"
+id="countdown">
+
+3
+
+</div>
+
+</section>
+
+
+<!-- ======================================================
+     17 FINAL CELEBRATION
+====================================================== -->
+
+<section
+class="screen finalCelebration"
+id="screen17">
+
+<canvas
+class="fireworks"
+id="finalFireworks">
+</canvas>
+
+<div id="finalConfetti"></div>
+<div id="finalBalloons"></div>
+<div id="finalRockets"></div>
+<div id="finalSparks"></div>
+
+<div class="ring"></div>
+<div class="ring r2"></div>
+
+
+<div class="finalHappy">
+
+<span class="small">
+🎉 HAPPY BIRTHDAY 🎉
+</span>
+
+<span class="huge">
+AARA
+</span>
+
+</div>
+
+
+<div class="friendForever">
+
+💛 BEST FRIEND FOREVER 💛
+
+</div>
+
+
+<div class="finalMessage">
+
+No matter where life takes us...
+
+<br>
+
+I hope we always have
+more reasons to laugh,
+more stories to tell,
+and more memories
+to create.
+
+<br><br>
+
+Today is your day.
+
+So smile big,
+enjoy every moment,
+eat lots of cake 🎂
+
+and make this year
+unforgettable! ✨
+
+</div>
+
+
+<div style="
+position:relative;
+z-index:50;
+font-size:2.5rem;
+margin-top:15px;
+">
+
+🎂 🎈 🎁 🎊 ✨
+
+</div>
+
+
+<div class="theEnd">
+
+THIS SURPRISE WAS
+MADE JUST FOR YOU ✨
+
+</div>
+
+</section>
+
+
+<script>
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+function goToScreen(number){
+
+    document
+    .querySelectorAll(".screen")
+    .forEach(function(screen){
+
+        screen.classList.remove("active");
+
+    });
+
+
+    const target =
+    document.getElementById(
+        "screen" + number
+    );
+
+
+    if(target){
+
+        target.classList.add("active");
+
+    }
+
+
+    celebrationBurst();
+
+
+    if(number === 13){
+
+        startAaraCelebration();
+
+    }
+
+}
+
+
+/* =========================================================
+   CAKE
+========================================================= */
+
+function openSurprise(){
+
+    celebrationBurst();
+
+    setTimeout(function(){
+
+        goToScreen(5);
+
+    },500);
+
+}
+
+
+/* =========================================================
+   FIRST BIRTHDAY
+========================================================= */
+
+function startBirthday(){
+
+    goToScreen(6);
+
+    startConfetti(
+        "confetti1"
+    );
+
+    startBalloons(
+        "balloons1"
+    );
+
+    startSparkles(
+        "sparks1"
+    );
+
+    startRockets(
+        "rockets1"
+    );
+
+    startStars(
+        "stars1"
+    );
+
+    startFireworks(
+        "fireworks1"
+    );
+
+    startShootingStars();
+
+
+    setTimeout(function(){
+
+        document
+        .getElementById(
+            "blurOverlay"
+        )
+        .classList.add("show");
+
+    },7000);
+
+}
+
+
+/* =========================================================
+   FINAL CELEBRATION
+========================================================= */
+
+function startFinalCelebration(){
+
+    goToScreen(16);
+
+
+    let count=3;
+
+    const countdown =
+    document.getElementById(
+        "countdown"
+    );
+
+
+    countdown.innerText=count;
+
+
+    const timer =
+    setInterval(function(){
+
+        count--;
+
+
+        if(count>0){
+
+            countdown.innerText=
+            count;
+
+            countdown.style.animation=
+            "none";
+
+            void countdown.offsetWidth;
+
+            countdown.style.animation=
+            "countdownPop .9s cubic-bezier(.2,.9,.2,1)";
+
+        }
+
+
+        else{
+
+            clearInterval(timer);
+
+
+            countdown.innerText="🎉";
+
+
+            setTimeout(function(){
+
+                launchFinalCelebration();
+
+            },900);
+
+        }
+
+    },1000);
+
+}
+
+
+/* =========================================================
+   LAUNCH FINAL
+========================================================= */
+
+function launchFinalCelebration(){
+
+    goToScreen(17);
+
+
+    startConfetti(
+        "finalConfetti"
+    );
+
+    startBalloons(
+        "finalBalloons"
+    );
+
+    startSparkles(
+        "finalSparks"
+    );
+
+    startRockets(
+        "finalRockets"
+    );
+
+    startFireworks(
+        "finalFireworks"
+    );
+
+    startShootingStars();
+
+
+    /*
+       EXTRA MASSIVE BURST
+    */
+
+    setTimeout(function(){
+
+        for(
+            let i=0;
+            i<5;
+            i++
+        ){
+
+            setTimeout(
+                celebrationBurst,
+                i*500
+            );
+
+        }
+
+    },500);
+
+}
+
+
+/* =========================================================
+   CELEBRATION BURST
+========================================================= */
+
+function celebrationBurst(){
+
+    createConfettiBurst();
+
+    createSparkleBurst();
+
+    createHeartBurst();
+
+}
+
+
+/* =========================================================
+   HEART BURST
+========================================================= */
+
+function createHeartBurst(){
+
+    const items=[
+        "💖",
+        "💕",
+        "💗",
+        "💓",
+        "💛"
+    ];
+
+
+    for(
+        let i=0;
+        i<7;
+        i++
+    ){
+
+        const item =
+        document.createElement(
+            "div"
+        );
+
+
+        item.style.position="fixed";
+
+        item.style.left=
+        Math.random()*100+"%";
+
+        item.style.bottom="0";
+
+        item.style.zIndex="1000";
+
+        item.style.fontSize=
+        (Math.random()*15+15)+"px";
+
+        item.innerHTML=
+        items[
+            Math.floor(
+                Math.random()
+                *items.length
+            )
+        ];
+
+
+        item.animate(
+
+        [
+
+            {
+                transform:
+                "translateY(0) scale(.5)",
+
+                opacity:0
+            },
+
+            {
+                transform:
+                "translateY(-50vh) scale(1.3)",
+
+                opacity:1
+            },
+
+            {
+                transform:
+                "translateY(-100vh) scale(.8)",
+
+                opacity:0
+            }
+
+        ],
+
+        {
+
+            duration:
+            Math.random()*1800+2500,
+
+            easing:"ease-out"
+
+        });
+
+
+        document.body.appendChild(
+            item
+        );
+
+
+        setTimeout(
+        function(){
+
+            item.remove();
+
+        },4500);
+
+    }
+
+}
+
+
+/* =========================================================
+   CONFETTI BURST
+========================================================= */
+
+function createConfettiBurst(){
+
+    const symbols=[
+        "🎉",
+        "🎊",
+        "✨",
+        "⭐",
+        "💫",
+        "🌟"
+    ];
+
+
+    for(
+        let i=0;
+        i<12;
+        i++
+    ){
+
+        const item =
+        document.createElement(
+            "div"
+        );
+
+
+        item.style.position="fixed";
+
+        item.style.left=
+        Math.random()*100+"%";
+
+        item.style.top=
+        Math.random()*50+"%";
+
+        item.style.zIndex="999";
+
+        item.style.fontSize=
+        (Math.random()*15+12)+"px";
+
+        item.innerHTML=
+        symbols[
+            Math.floor(
+                Math.random()
+                *symbols.length
+            )
+        ];
+
+
+        item.animate(
+
+        [
+
+            {
+                transform:
+                "translateY(0) rotate(0)",
+
+                opacity:1
+            },
+
+            {
+                transform:
+                "translateY(90vh) rotate(700deg)",
+
+                opacity:0
+            }
+
+        ],
+
+        {
+
+            duration:
+            Math.random()*2500+2000,
+
+            easing:"ease-in"
+
+        });
+
+
+        document.body.appendChild(
+            item
+        );
+
+
+        setTimeout(
+        function(){
+
+            item.remove();
+
+        },5000);
+
+    }
+
+}
+
+
+/* =========================================================
+   SPARKLE BURST
+========================================================= */
+
+function createSparkleBurst(){
+
+    const symbols=[
+        "✦",
+        "✧",
+        "⋆",
+        "✶",
+        "✷"
+    ];
+
+
+    for(
+        let i=0;
+        i<15;
+        i++
+    ){
+
+        const sparkle =
+        document.createElement(
+            "div"
+        );
+
+
+        sparkle.style.position="fixed";
+
+        sparkle.style.left=
+        Math.random()*100+"%";
+
+        sparkle.style.top=
+        Math.random()*100+"%";
+
+        sparkle.style.zIndex="1000";
+
+        sparkle.style.color="white";
+
+        sparkle.style.fontSize=
+        (Math.random()*18+10)+"px";
+
+        sparkle.innerHTML=
+        symbols[
+            Math.floor(
+                Math.random()
+                *symbols.length
+            )
+        ];
+
+
+        sparkle.animate(
+
+        [
+
+            {
+                transform:"scale(0)",
+                opacity:0
+            },
+
+            {
+                transform:"scale(1.5)",
+                opacity:1
+            },
+
+            {
+                transform:"scale(0)",
+                opacity:0
+            }
+
+        ],
+
+        {
+
+            duration:
+            Math.random()*1000+1000
+
+        });
+
+
+        document.body.appendChild(
+            sparkle
+        );
+
+
+        setTimeout(
+        function(){
+
+            sparkle.remove();
+
+        },2200);
+
+    }
+
+}
+
+
+/* =========================================================
+   CONFETTI
+========================================================= */
+
+function startConfetti(id){
+
+    const container =
+    document.getElementById(id);
+
+
+    const items=[
+        "🎉",
+        "🎊",
+        "⭐",
+        "✨",
+        "🌟",
+        "💫",
+        "🎀",
+        "🎈"
+    ];
+
+
+    for(
+        let i=0;
+        i<100;
+        i++
+    ){
+
+        const piece =
+        document.createElement(
+            "div"
+        );
+
+
+        piece.className="confetti";
+
+
+        piece.innerHTML=
+        items[
+            Math.floor(
+                Math.random()
+                *items.length
+            )
+        ];
+
+
+        piece.style.left=
+        Math.random()*100+"%";
+
+
+        piece.style.fontSize=
+        (Math.random()*14+9)+"px";
+
+
+        piece.style.animationDuration=
+        (Math.random()*5+4)+"s";
+
+
+        piece.style.animationDelay=
+        Math.random()*5+"s";
+
+
+        piece.style.setProperty(
+            "--drift",
+            (Math.random()*180-90)+"px"
+        );
+
+
+        container.appendChild(
+            piece
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   BALLOONS
+========================================================= */
+
+function startBalloons(id){
+
+    const container =
+    document.getElementById(id);
+
+
+    for(
+        let i=0;
+        i<8;
+        i++
+    ){
+
+        const balloon =
+        document.createElement(
+            "div"
+        );
+
+
+        balloon.className="balloon";
+
+        balloon.innerHTML="🎈";
+
+
+        balloon.style.left=
+        Math.random()*95+"%";
+
+
+        balloon.style.fontSize=
+        (Math.random()*25+35)+"px";
+
+
+        balloon.style.animationDuration=
+        (Math.random()*5+7)+"s";
+
+
+        balloon.style.animationDelay=
+        Math.random()*5+"s";
+
+
+        container.appendChild(
+            balloon
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   SPARKLES
+========================================================= */
+
+function startSparkles(id){
+
+    const container =
+    document.getElementById(id);
+
+
+    for(
+        let i=0;
+        i<45;
+        i++
+    ){
+
+        const spark =
+        document.createElement(
+            "div"
+        );
+
+
+        spark.className="spark";
+
+
+        spark.innerHTML=
+        Math.random()>.5
+        ? "✦"
+        : "✧";
+
+
+        spark.style.left=
+        Math.random()*100+"%";
+
+
+        spark.style.top=
+        Math.random()*100+"%";
+
+
+        spark.style.fontSize=
+        (Math.random()*15+9)+"px";
+
+
+        spark.style.animationDelay=
+        Math.random()*2+"s";
+
+
+        container.appendChild(
+            spark
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   STARS
+========================================================= */
+
+function startStars(id){
+
+    const container =
+    document.getElementById(id);
+
+
+    for(
+        let i=0;
+        i<40;
+        i++
+    ){
+
+        const star =
+        document.createElement(
+            "div"
+        );
+
+
+        star.className="spark";
+
+        star.innerHTML="✦";
+
+
+        star.style.left=
+        Math.random()*100+"%";
+
+
+        star.style.top=
+        Math.random()*100+"%";
+
+
+        star.style.fontSize=
+        (Math.random()*12+8)+"px";
+
+
+        star.style.animationDelay=
+        Math.random()*3+"s";
+
+
+        container.appendChild(
+            star
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   ROCKETS
+========================================================= */
+
+function startRockets(id){
+
+    const container =
+    document.getElementById(id);
+
+
+    function launchRocket(){
+
+        const rocket =
+        document.createElement(
+            "div"
+        );
+
+
+        rocket.className="rocket";
+
+
+        rocket.innerHTML=
+        Math.random()>.5
+        ? "🚀"
+        : "🎇";
+
+
+        rocket.style.left=
+        Math.random()*90+"%";
+
+
+        rocket.style.setProperty(
+            "--rocketX",
+            (Math.random()*160-80)+"px"
+        );
+
+
+        rocket.style.animationDuration=
+        (Math.random()*2+2)+"s";
+
+
+        container.appendChild(
+            rocket
+        );
+
+
+        setTimeout(
+        function(){
+
+            rocket.remove();
+
+        },4500);
+
+    }
+
+
+    for(
+        let i=0;
+        i<8;
+        i++
+    ){
+
+        setTimeout(
+            launchRocket,
+            i*900
+        );
+
+    }
+
+
+    setInterval(
+        launchRocket,
+        2500
+    );
+
+}
+
+
+/* =========================================================
+   SHOOTING STARS
+========================================================= */
+
+function startShootingStars(){
+
+    function shootingStar(){
+
+        const star =
+        document.createElement(
+            "div"
+        );
+
+
+        star.className=
+        "shootingStar";
+
+
+        star.style.left=
+        (Math.random()*100+10)+"%";
+
+
+        star.style.top=
+        (Math.random()*45)+"%";
+
+
+        document.body.appendChild(
+            star
+        );
+
+
+        setTimeout(
+        function(){
+
+            star.remove();
+
+        },1500);
+
+    }
+
+
+    setInterval(
+        shootingStar,
+        1800
+    );
+
+}
+
+
+/* =========================================================
+   FIREWORKS
+========================================================= */
+
+function startFireworks(id){
+
+    const canvas =
+    document.getElementById(id);
+
+
+    if(!canvas)
+        return;
+
+
+    const ctx =
+    canvas.getContext("2d");
+
+
+    let particles=[];
+
+
+    function resize(){
+
+        canvas.width=
+        window.innerWidth;
+
+        canvas.height=
+        window.innerHeight;
+
+    }
+
+
+    resize();
+
+
+    window.addEventListener(
+        "resize",
+        resize
+    );
+
+
+    function createFirework(){
+
+        const x=
+        Math.random()
+        *canvas.width;
+
+
+        const y=
+        Math.random()
+        *canvas.height*.55;
+
+
+        const hue=
+        Math.random()*360;
+
+
+        for(
+            let i=0;
+            i<90;
+            i++
+        ){
+
+            const angle=
+            Math.random()
+            *Math.PI*2;
+
+
+            const speed=
+            Math.random()*6+2;
+
+
+            particles.push({
+
+                x:x,
+                y:y,
+
+                vx:
+                Math.cos(angle)
+                *speed,
+
+                vy:
+                Math.sin(angle)
+                *speed,
+
+                life:100,
+
+                hue:hue,
+
+                size:
+                Math.random()*2.5+1
+
+            });
+
+        }
+
+    }
+
+
+    function animate(){
+
+        ctx.clearRect(
+            0,
+            0,
+            canvas.width,
+            canvas.height
+        );
+
+
+        particles.forEach(
+        function(p,index){
+
+            p.x+=p.vx;
+
+            p.y+=p.vy;
+
+            p.vy+=.045;
+
+            p.life-=1.25;
+
+
+            ctx.beginPath();
+
+
+            ctx.arc(
+                p.x,
+                p.y,
+                p.size,
+                0,
+                Math.PI*2
+            );
+
+
+            ctx.fillStyle=
+            "hsla("
+            +p.hue+
+            ",100%,70%,"
+            +(p.life/100)+
+            ")";
+
+
+            ctx.fill();
+
+
+            if(
+                p.life<=0
+            ){
+
+                particles.splice(
+                    index,
+                    1
+                );
+
+            }
+
+        });
+
+
+        requestAnimationFrame(
+            animate
+        );
+
+    }
+
+
+    setInterval(
+        createFirework,
+        650
+    );
+
+
+    animate();
+
+}
+
+
+/* =========================================================
+   AARA CELEBRATION
+========================================================= */
+
+function startAaraCelebration(){
+
+    startConfetti(
+        "confetti2"
+    );
+
+    startBalloons(
+        "balloons2"
+    );
+
+    startSparkles(
+        "sparks2"
+    );
+
+    startRockets(
+        "rockets2"
+    );
+
+    startFireworks(
+        "fireworks2"
+    );
+
+    startShootingStars();
+
+}
+
+
+/* =========================================================
+   BACKGROUND SPARKLES
+========================================================= */
+
+setInterval(
+function(){
+
+    const active=
+    document.querySelector(
+        ".screen.active"
+    );
+
+
+    if(!active)
+        return;
+
+
+    const spark=
+    document.createElement(
+        "div"
+    );
+
+
+    spark.className="spark";
+
+
+    spark.innerHTML=
+    Math.random()>.5
+    ? "✦"
+    : "✧";
+
+
+    spark.style.left=
+    Math.random()*100+"%";
+
+
+    spark.style.top=
+    Math.random()*100+"%";
+
+
+    spark.style.fontSize=
+    "17px";
+
+
+    active.appendChild(
+        spark
+    );
+
+
+    setTimeout(
+    function(){
+
+        spark.remove();
+
+    },1800);
+
+},700);
+
+</script>
+
+</body>
+</html>
